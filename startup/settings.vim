@@ -106,7 +106,7 @@ let g:termdebug_wide=1
 let g:termdebug_leftsource = 1
 let g:termdebug_focussource = 1
 let g:termdebug_disable_toolbar = 1
-hi debugPC term=reverse ctermbg=888 guibg=darkblue
+hi debugPC term=reverse ctermbg=8 guibg=darkblue
 
 
 " add keywords like TODO, FIXME, NOTE, HACK, FEAT
