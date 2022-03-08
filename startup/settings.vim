@@ -8,13 +8,6 @@ syntax enable
 " colors
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set background=dark
-" colorscheme solarized8
-" colorscheme gruvbox
-" let g:gruvbox_contrast_dark='hard'
-" colorscheme nord
-" set termguicolors
-" let g:nord_italic = 1
-" let g:nord_italic_comments = 1
 colorscheme nord
 
 
@@ -114,6 +107,13 @@ let g:termdebug_leftsource = 1
 let g:termdebug_focussource = 1
 let g:termdebug_disable_toolbar = 1
 hi debugPC term=reverse ctermbg=8 guibg=darkblue
+
+" vim-cpp-modern configs
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:cpp_function_highlight = 1
+let g:cpp_attributes_highlight = 1
+let g:cpp_member_highlight = 1
+let g:cpp_simple_highlight = 1
 
 
 " add keywords like TODO, FIXME, NOTE, HACK, FEAT

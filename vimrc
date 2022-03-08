@@ -7,13 +7,15 @@ filetype off                  " required
 call plug#begin('~/.vim/plugged')
 
 " GUI RELATED PLUGINS
-Plug 'itchyny/lightline.vim'
+" Plug 'itchyny/lightline.vim'
+" Plug 'ap/vim-buftabline'
 Plug 'scrooloose/nerdtree'
 Plug 'PhilRunninger/nerdtree-visual-selection'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'junegunn/vim-slash'
 Plug 'obcat/vim-hitspop'
-Plug 'ap/vim-buftabline'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 
 "" GIT GUI
 Plug 'airblade/vim-gitgutter'
@@ -25,12 +27,13 @@ Plug 'chrisbra/vim-commentary'
 
 " COLOR SCHEMES
 " Plug 'morhetz/gruvbox'
-" Plug 'cocopon/iceberg'
+" Plug 'rafi/awesome-vim-colorschemes'
 Plug 'arcticicestudio/nord-vim'
-Plug 'rafi/awesome-vim-colorschemes'
+" Plug 'cocopon/iceberg.vim'
 
 " SYNTATIC LANGUAGE SUPPORT
 Plug 'w0rp/ale'
+Plug 'bfrg/vim-cpp-modern'
 " Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " HIGHLIGHTING
