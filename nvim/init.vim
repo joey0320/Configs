@@ -1,18 +1,53 @@
 
-" My nvim configurations
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" set the runtime path to include vim-plug and initialize
+call plug#begin('~/.vim/plugged')
 
-" Plugins
-source $HOME/.config/nvim/vim-plug/plugins.vim
+" GUI RELATED PLUGINS
+Plug 'preservim/nerdtree'
+Plug 'PhilRunninger/nerdtree-visual-selection'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'junegunn/vim-slash'
+" Plug 'obcat/vim-hitspop' "No support for Neovim
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 
-" Plugin related
-source $HOME/.config/nvim/plug-config/airline-settings.vim
-source $HOME/.config/nvim/plug-config/coc.vim
+"" GIT GUI
+Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
 
-" General settings
-source $HOME/.config/nvim/general/settings.vim
+""" FOR COMMENTING
+Plug 'chrisbra/vim-commentary' 
 
-" Key mappings
-source $HOME/.config/nvim/keys/mappings.vim
+" COLOR SCHEMES
+" Plug 'morhetz/gruvbox'
+Plug 'arcticicestudio/nord-vim'
 
-" Themes
-source $HOME/.config/nvim/themes/gruvbox.vim
+" SYNTATIC LANGUAGE SUPPORT
+" Plug 'w0rp/ale'
+" Plug 'bfrg/vim-cpp-modern'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+" HIGHLIGHTING
+Plug 'yggdroot/indentline'
+Plug 'andymass/vim-matchup'
+Plug 'machakann/vim-highlightedyank'
+
+" AUTO COMPLETE
+" Plug 'ycm-core/YouCompleteMe'
+
+" JUMPING TO DEFINITION
+Plug 'jlanzarotta/bufexplorer'
+Plug 'universal-ctags/ctags'
+
+" USING THE SYSTEM CLIPBOARD
+" Plug 'christoomey/vim-system-copy'
+
+call plug#end()
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+source ~/.config/nvim/settings.vim
+source ~/.config/nvim/mappings.vim
+source ~/.config/nvim/coc.vim
