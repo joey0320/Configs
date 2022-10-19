@@ -1,0 +1,50 @@
+# ~/.bashrc            
+
+# Personal environment variables and startup programs
+# should go into ~/.bash_profile.
+# Personal aliases and functions should go into ~/.bashrc
+
+
+# interactive prompt
+PS1="> "
+
+# use the following instead, if you don't want your username in the prompt
+#PS1="[\h:\w]\\$ "
+
+# continuation interactive prompt (for multi-line commands)
+PS2='> '
+
+
+export LS_OPTIONS='--color=auto'
+eval "$(dircolors -b)"
+alias ls='ls $LS_OPTIONS'
+alias gd="cd /scratch/joonho.whangbo/coding"
+alias l="ls -al"
+
+shopt -s histappend
+export HISTSIZE=100000
+
+############################################################################
+export VERILATOR_ROOT="/scratch/joonho.whangbo/coding/verilator"
+PATH="$VERILATOR_ROOT/bin:$PATH"
+
+
+############################################################################
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/scratch/joonho.whangbo/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/scratch/joonho.whangbo/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/scratch/joonho.whangbo/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/scratch/joonho.whangbo/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
+
