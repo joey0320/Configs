@@ -38,7 +38,7 @@ __prompt_command() {
 # PS1+="${RCol}@${BBlu}\h ${Pur}\W${BYel}$ ${RCol}"
 }
 
-export LS_OPTIONS='--color=auto'
+export LS_OPTIONS='--color=auto -lh'
 eval "$(dircolors -b)"
 ############################################################################
 
