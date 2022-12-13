@@ -52,6 +52,7 @@ Plug 'universal-ctags/ctags'
 
 " USING THE SYSTEM CLIPBOARD
 " Plug 'christoomey/vim-system-copy'
+Plug 'ojroques/vim-oscyank'
 
 " DEBUG
 " Plug 'puremourning/vimspector' "I really should work on setting this up
