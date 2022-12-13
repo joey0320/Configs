@@ -9,7 +9,7 @@ call plug#begin('~/.vim/plugged')
 " GUI RELATED PLUGINS
 " Plug 'itchyny/lightline.vim'
 " Plug 'ap/vim-buftabline'
-Plug 'scrooloose/nerdtree'
+Plug 'preservim/nerdtree'
 Plug 'PhilRunninger/nerdtree-visual-selection'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'junegunn/vim-slash'
@@ -51,7 +51,7 @@ Plug 'jlanzarotta/bufexplorer'
 Plug 'universal-ctags/ctags'
 
 " USING THE SYSTEM CLIPBOARD
-Plug 'christoomey/vim-system-copy'
+" Plug 'christoomey/vim-system-copy'
 
 " DEBUG
 " Plug 'puremourning/vimspector' "I really should work on setting this up
