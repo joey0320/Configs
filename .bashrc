@@ -1,4 +1,4 @@
-# ~/.bashrc            
+# ~/.bashrc
 
 # Personal environment variables and startup programs
 # should go into ~/.bash_profile.
@@ -33,9 +33,6 @@ __prompt_command() {
   else
     PS1+="${Gre}\w ${Pur}> ${RCol}"
   fi
-
-# PS1 += "> "
-# PS1+="${RCol}@${BBlu}\h ${Pur}\W${BYel}$ ${RCol}"
 }
 
 export LS_OPTIONS='--color=auto -lh'
@@ -50,16 +47,23 @@ alias gd="cd /scratch/joonho.whangbo/coding"
 shopt -s histappend
 export HISTSIZE=100000
 
-############################################################################
-export VERILATOR_ROOT="/scratch/joonho.whangbo/coding/verilator"
-PATH="$VERILATOR_ROOT/bin:$PATH"
+PATH="/scratch/joonho.whangbo/bin:$PATH"
+PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 
-export ENABLE_SBT_THIN_CLIENT=1
-
-
-source /ecad/tools/vlsi.bashrc
+# export MAKEFLAGS='-j72'
+# PATH="/scratch/joonho.whangbo/coding/circt/build/bin:$PATH"
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+############################################################################
+
+export VERILATOR_ROOT="/scratch/joonho.whangbo/coding/verilator"
+PATH="$VERILATOR_ROOT/bin:$PATH"
+export ENABLE_SBT_THIN_CLIENT=1
+export MARSHAL_BOARD_DIR="/scratch/joonho.whangbo/coding/accel_integration_chipyard/software/firemarshal/boards/chipyard"
+export RISCV="/scratch/joonho.whangbo/coding/riscv-gnu-toolchain"
+
+source /ecad/tools/vlsi.bashrc
 
 ############################################################################
 
@@ -77,5 +81,3 @@ else
 fi
 unset __conda_setup
 # <<< conda initialize <<<
-
-

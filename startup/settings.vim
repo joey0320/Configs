@@ -3,7 +3,7 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " syntax
-syntax enable
+syntax on
 
 " colors
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -18,12 +18,11 @@ set softtabstop=2
 set shiftwidth=2
 set expandtab
 
-" backspace to prev line
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set backspace=indent,eol,start
 
 " ui configs
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set backspace=indent,eol,start  " backspace to prev line
+set nowrap             " don't wrap long lines
 set number             " show line numbers
 set relativenumber     " show relative numbering
 set showcmd            " show command on bottom bar
@@ -55,9 +54,6 @@ set smartcase          " but make it case sensitive if an uppercase in entered
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set noshowmode         " no show mode for default
 set laststatus=2       " turn on bottom bar
-" let g:lightline = {
-" \ 'colorscheme': 'wombat',
-" \ }
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
@@ -108,6 +104,11 @@ let g:termdebug_focussource = 1
 let g:termdebug_disable_toolbar = 1
 hi debugPC term=reverse ctermbg=8 guibg=darkblue
 
+" change termdebug path
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" let g:termdebugger="/scratch/joonho.whangbo/coding/riscv-gnu-toolchain/bin/riscv64-unknown-elf-gdb"
+
+
 " vim-cpp-modern configs
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:cpp_function_highlight = 1
@@ -131,31 +132,9 @@ augroup now
   autocmd Syntax * call UpdateTodoKeywords("NOTE", "HACK", "FEAT")
 augroup END
 
-" ctags (jumping to def)
+" CY stuff
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set tags=tags
-
-" auto update ctags when a file is written
-function! DelTagOfFile(file)
-  let fullpath = a:file
-  let cwd = getcwd()
-  let tagfilename = cwd . "/tags"
-  let f = substitute(fullpath, cwd . "/", "", "")
-  let f = escape(f, './')
-  let cmd = 'sed -i "/' . f . '/d" "' . tagfilename . '"'
-  let resp = system(cmd)
-endfunction
-
-function! UpdateTags()
-  let f = expand("%:p")
-  let cwd = getcwd()
-  let tagfilename = cwd . "/tags"
-  let cmd = 'ctags -a -f ' . tagfilename . ' --c++-kinds=+p --fields=+iaS --extra=+q ' . '"' . f . '"'
-  call DelTagOfFile(f)
-  let resp = system(cmd)
-endfunction
-
-autocmd BufWritePost *.cpp,*.h,*.c call UpdateTags()
+set tags=tags;/
 
 " cscopes
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -163,3 +142,34 @@ if filereadable("./cscope.out")
   cs add cscope.out
 endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Chisel syntax highlighting
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+augroup ft_scala
+  autocmd!
+  autocmd Syntax scala syn keyword chiselKeyword when elsewhen otherwise
+  autocmd Syntax scala hi link chiselKeyword Keyword
+  autocmd Syntax scala syn match chiselFunction /\<printf\>/
+  autocmd Syntax scala hi link chiselFunction Function
+  autocmd Syntax scala syn match chiselOperator "==="
+  autocmd Syntax scala syn match chiselOperator "=/="
+  autocmd Syntax scala syn match chiselOperator "+%"
+  autocmd Syntax scala syn match chiselOperator "+&"
+  autocmd Syntax scala syn match chiselOperator "-%"
+  autocmd Syntax scala syn match chiselOperator "-&"
+  autocmd Syntax scala hi link chiselOperator Special
+augroup end
+
+
+" Show hidden files
+let NERDTreeShowHidden=1
+
+" oscyank buffer limit
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:oscyank_max_length = 100000000
+
+" conflict-marker, use only basic highlighting
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:conflict_marker_enable_mappings = 0
+let g:conflict_marker_enable_matchit = 0
+let g:conflict_marker_enable_mappings = 0
