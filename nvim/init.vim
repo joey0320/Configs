@@ -33,7 +33,19 @@ Plug 'craigemery/vim-autotag' " automatic update of ctags
 Plug 'machakann/vim-highlightedyank' " highlight yanked parts
 Plug 'junegunn/vim-slash' " highlights for in-buf search
 Plug 'tpope/vim-fugitive' " Git inside vim
-" Plug 'ycm-core/YouCompleteMe' " autocomplete
+
+Plug 'VonHeikemen/lsp-zero.nvim' " plugin to rule all the lsp stuff
+Plug 'neovim/nvim-lspconfig' " neovim built in lsp (lsp-zero req)
+Plug 'williamboman/mason.nvim' " (lsp-zero req)
+Plug 'williamboman/mason-lspconfig.nvim' " (lsp-zero req)
+Plug 'hrsh7th/nvim-cmp' " autocmp (lsp-zero req)
+Plug 'hrsh7th/cmp-buffer' " autocmp (lsp-zero req)
+Plug 'hrsh7th/cmp-path' " autocmp (lsp-zero req)
+Plug 'saadparwaiz1/cmp_luasnip' " autocmp (lsp-zero req)
+Plug 'hrsh7th/cmp-nvim-lsp' " autocmp (lsp-zero req)
+Plug 'hrsh7th/cmp-nvim-lua' " autocmp (lsp-zero req)
+Plug 'L3MON4D3/LuaSnip' " autocmp snippets (lsp-zero req)
+Plug 'rafamadriz/friendly-snippets' " autocmp snippets (lsp-zero req)
 call plug#end()
 " automatically calls
 "syntax on " enable syntax highlighting
