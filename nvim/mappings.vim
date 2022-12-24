@@ -13,21 +13,11 @@ nnoremap <C-i> <C-i>zz
 nnoremap <C-e> 10<C-e>
 nnoremap <C-y> 10<C-y>
 
+" termdebug exit terminal-mode
+tnoremap <Esc> <C-\><C-n>
+
 " for nerdtree
 map <C-n> :NERDTreeToggle<CR>
-
-" Leader
-let mapleader=" "       " leader is space
-
-"  y d p P   --  Quick copy paste into system clipboard
-nmap <Leader>y "+y
-nmap <Leader>d "+d
-vmap <Leader>y "+y
-vmap <Leader>d "+d
-nmap <Leader>p "+p
-nmap <Leader>P "+P
-vmap <Leader>p "+p
-vmap <Leader>P "+P
 
 " Leader
 let mapleader=" "       " leader is space
@@ -47,3 +37,10 @@ nnoremap <C-l> <C-w>l
 " move btw buffers
 nnoremap <Tab> :bnext<CR>
 nnoremap <S-Tab> :bprevious<CR>
+
+" grep
+nnoremap <C-g> :!grep -irn
+
+" Have ctags automatically check for all tags first and present them
+nnoremap <C-]> g<C-]>
+
