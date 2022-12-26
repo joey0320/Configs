@@ -39,7 +39,7 @@ nnoremap <Tab> :bnext<CR>
 nnoremap <S-Tab> :bprevious<CR>
 
 " grep
-nnoremap <C-g> :!grep -irn
+" nnoremap <C-g> :!grep -irn
 
 " Have ctags automatically check for all tags first and present them
 nnoremap <C-]> g<C-]>

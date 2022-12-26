@@ -22,7 +22,7 @@ set list
 " ui configs
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set backspace=indent,eol,start  " backspace to prev line
-" set nowrap             " don't wrap long lines
+set nowrap             " don't wrap long lines
 set number             " show line numbers
 set relativenumber     " show relative numbering
 set showcmd            " show command on bottom bar
