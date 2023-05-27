@@ -49,6 +49,7 @@ set hlsearch           " highlight matches
 set ignorecase         " ignore case
 set smartcase          " but make it case sensitive if an uppercase in entered
 " set shortmess-=S       " Show search count on status bar
+set shortmess-=F       " Show nvim-metals logs
 
 " for status-line
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

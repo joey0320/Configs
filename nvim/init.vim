@@ -1,16 +1,5 @@
 " vim plug options
 
-" Install vim-plug if not found
-let data_dir = has('nvim') ? stdpath('data') . '/site' : '$XDG_CONFIG_HOME/.vim'
-if empty(glob(data_dir . '/autoload/plug.vim'))
-    silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
-
-" Run PlugInstall if there are missing plugins
-autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
-  \| PlugInstall --sync | source $MYVIMRC
-\| endif
 
 call plug#begin()
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " parse file into tree for better highlighting, etc
@@ -34,18 +23,12 @@ Plug 'machakann/vim-highlightedyank' " highlight yanked parts
 Plug 'junegunn/vim-slash' " highlights for in-buf search
 Plug 'tpope/vim-fugitive' " Git inside vim
 
-Plug 'VonHeikemen/lsp-zero.nvim' " plugin to rule all the lsp stuff
-Plug 'neovim/nvim-lspconfig' " neovim built in lsp (lsp-zero req)
-Plug 'williamboman/mason.nvim' " (lsp-zero req)
-Plug 'williamboman/mason-lspconfig.nvim' " (lsp-zero req)
-Plug 'hrsh7th/nvim-cmp' " autocmp (lsp-zero req)
-Plug 'hrsh7th/cmp-buffer' " autocmp (lsp-zero req)
-Plug 'hrsh7th/cmp-path' " autocmp (lsp-zero req)
-Plug 'saadparwaiz1/cmp_luasnip' " autocmp (lsp-zero req)
-Plug 'hrsh7th/cmp-nvim-lsp' " autocmp (lsp-zero req)
-Plug 'hrsh7th/cmp-nvim-lua' " autocmp (lsp-zero req)
-Plug 'L3MON4D3/LuaSnip' " autocmp snippets (lsp-zero req)
-Plug 'rafamadriz/friendly-snippets' " autocmp snippets (lsp-zero req)
+Plug 'scalameta/nvim-metals' " metals (scala lsp backend)
+Plug 'neovim/nvim-lspconfig' " lsp config for nvim
+Plug 'hrsh7th/nvim-cmp'      " auto cmp
+Plug 'hrsh7th/cmp-nvim-lsp'  " lsp sources for auto cmp
+Plug 'saadparwaiz1/cmp_luasnip' " buffer sources for auto cmp
+Plug 'L3MON4D3/LuaSnip'      " Lua snip
 call plug#end()
 " automatically calls
 "syntax on " enable syntax highlighting
