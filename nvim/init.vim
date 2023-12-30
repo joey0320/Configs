@@ -6,6 +6,7 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " parse file into tr
 Plug 'nvim-lua/plenary.nvim' " see nextline
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' } " fuzzy finder
 " Plug 'shaunsingh/nord.nvim' " colors, easy for my eyes
+Plug 'folke/tokyonight.nvim' " colors
 Plug 'oahlen/iceberg.nvim' " colors, easy for my eyes
 Plug 'preservim/nerdtree' " file tree explorer
 " Plug 'ojroques/nvim-hardline' " buff+status line
@@ -60,7 +61,7 @@ set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<
 set list
 
 set background=dark
-colorscheme iceberg
+colorscheme tokyonight-night
 
 
 " ui configs
