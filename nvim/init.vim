@@ -23,7 +23,8 @@ Plug 'universal-ctags/ctags' " for ctags
 Plug 'craigemery/vim-autotag' " automatic update of ctags
 Plug 'machakann/vim-highlightedyank' " highlight yanked parts
 Plug 'junegunn/vim-slash' " highlights for in-buf search
-Plug 'tpope/vim-fugitive' " Git inside vim
+Plug 'tpope/vim-fugitive' " git inside vim
+Plug 'junegunn/gv.vim' " Even better git inside vim
 
 Plug 'scalameta/nvim-metals' " metals (scala lsp backend)
 Plug 'neovim/nvim-lspconfig' " lsp config for nvim
