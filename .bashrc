@@ -4,66 +4,128 @@
 # should go into ~/.bash_profile.
 # Personal aliases and functions should go into ~/.bashrc
 
+RCol='\[\e[0m\]'
+Gre='\[\e[1;32m\]'
+BBlu='\[\e[1;36m\]'
 
-# interactive prompt
-PS1="> "
-
-# use the following instead, if you don't want your username in the prompt
-#PS1="[\h:\w]\\$ "
-
-# continuation interactive prompt (for multi-line commands)
+PS1="${BBlu}\H:\w > ${RCol}"
 PS2='> '
-
-PROMPT_COMMAND=__prompt_command    # Function to generate PS1 after CMDs
-
-__prompt_command() {
-  local EXIT="$?"                # This needs to be first
-  PS1=""
-
-  local RCol='\[\e[0m\]'
-
-  local Red='\[\e[0;31m\]'
-  local Gre='\[\e[0;32m\]'
-  local BYel='\[\e[1;33m\]'
-  local BBlu='\[\e[1;34m\]'
-  local Pur='\[\e[0;35m\]'
-
-  if [ $EXIT != 0 ]; then
-    PS1+="${Red}\w ${Pur}> ${RCol}"        # Add red if exit code non 0
-  else
-    PS1+="${Gre}\w ${Pur}> ${RCol}"
-  fi
-}
 
 export LS_OPTIONS='--color=auto -lh'
 eval "$(dircolors -b)"
+
+PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
+shopt -s histappend
+export HISTSIZE=1000000
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+##############################################################################
+
+linediff() { 
+     if [ -z "$1" ] || [ -z "$2" ]; then return; fi
+     f1=$(basename "$1")
+     f2=$(basename "$2")
+     cat -n "$1" > "/tmp/$f1"
+     cat -n "$2" > "/tmp/$f2"
+     vimdiff "/tmp/$f1" "/tmp/$f2"
+     rm "/tmp/$f1" "/tmp/$f2"
+}
+
+function set_sbt_heap_size() {
+  export SBT_OPTS="-Xmx16G -Xms1G"
+}
+
+function connect_ssh_agent() {
+  # set SSH_AUTH_SOCK env var to a fixed value
+  export SSH_AUTH_SOCK=~/.ssh/ssh-agent.sock
+
+  # test whether $SSH_AUTH_SOCK is valid
+  ssh-add -l 2>/dev/null >/dev/null
+
+  # if not valid, then start ssh-agent using $SSH_AUTH_SOCK
+  [ $? -ge 2 ] && ssh-agent -a "$SSH_AUTH_SOCK" >/dev/null
+}
+
+function firesim1_connect_ssh_agent() {
+  # set SSH_AUTH_SOCK env var to a fixed value
+  export FIRESIM1_SSH_AUTH_SOCK=~/.ssh/firesim1-ssh-agent.sock
+
+  # test whether $SSH_AUTH_SOCK is valid
+  ssh-add -l 2>/dev/null >/dev/null
+
+  # if not valid, then start ssh-agent using $SSH_AUTH_SOCK
+  [ $? -ge 2 ] && ssh-agent -a "$FIRESIM1_SSH_AUTH_SOCK" >/dev/null
+}
+
+function clone_chipyard() {
+  git clone git@github.com:ucb-bar/chipyard.git $1
+}
+
+function clone_firesim() {
+  git clone git@github.com:firesim/firesim.git $1
+}
+
 ############################################################################
+
+BASE_DIR="/scratch/joonho.whangbo"
 
 alias ls='ls $LS_OPTIONS'
 alias l="ls -al"
 alias ll="ls -al"
-alias gd="cd /scratch/joonho.whangbo/coding"
 
-shopt -s histappend
-export HISTSIZE=100000
+if [ -d $BASE_DIR ]
+then
+  alias gd="cd $BASE_DIR/coding"
+  alias vi="$BASE_DIR/nvim-linux64/bin/nvim"
+  PATH="$BASE_DIR/bin:$PATH"
+  PATH="$BASE_DIR/lua_build/lua-5.4.4/src:$PATH"
+  PATH="$PATH:$BASE_DIR/coding/pandoc-2.19.2/bin"
+  PATH="$PATH:$BASE_DIR/clangd_16.0.2/bin"
+  PATH="$BASE_DIR/coding/.local/bin:$PATH"
 
-PATH="/scratch/joonho.whangbo/bin:$PATH"
-PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
+  if [ -d "$BASE_DIR/usr/bin" ]; then
+    export PATH="$BASE_DIR/usr/bin:$PATH"
+  fi
 
-# export MAKEFLAGS='-j72'
-# PATH="/scratch/joonho.whangbo/coding/circt/build/bin:$PATH"
+  if [ -d $BASE_DIR/go ]
+  then
+    export PATH=$BASE_DIR/go/bin:$PATH
+  fi
+fi
 
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+# Rust setup
+if [ -d $HOME/.cargo ]
+then
+  source "$HOME/.cargo/env"
+fi
 
-############################################################################
+# ripgrep setup
+if [ -d $HOME/ripgrep ]
+then
+  PATH=$HOME/ripgrep/target/release:$PATH
+fi
 
-export VERILATOR_ROOT="/scratch/joonho.whangbo/coding/verilator"
-PATH="$VERILATOR_ROOT/bin:$PATH"
-export ENABLE_SBT_THIN_CLIENT=1
-export MARSHAL_BOARD_DIR="/scratch/joonho.whangbo/coding/accel_integration_chipyard/software/firemarshal/boards/chipyard"
-export RISCV="/scratch/joonho.whangbo/coding/riscv-gnu-toolchain"
+# Cad tools
+export ECAD_TOOLS_DIR="/ecad/tools"
+if [ -d $ECAD_TOOLS_DIR ]
+then
+  source $ECAD_TOOLS_DIR/vlsi.bashrc
 
-source /ecad/tools/vlsi.bashrc
+  # VCU118
+  # source "$ECAD_TOOLS_DIR/xilinx/Vivado/2019.1/settings64.sh"
+  # Intel FPGA
+  # export PATH="$ECAD_TOOLS_DIR/altera/intelFPGA_pro/23.2/quartus/bin:$PATH"
+  # U250
+  source "$ECAD_TOOLS_DIR/xilinx/Vivado/2021.1/settings64.sh"
+fi
+
+# llano vivao_lab
+HOSTNAME=$(hostname)
+if [ $HOSTNAME = "llano" ]
+then
+  source /tools/Xilinx/Vivado_Lab/2023.1/settings64.sh
+fi
 
 ############################################################################
 
@@ -82,13 +144,4 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
-function connect_ssh_agent() {
-  # set SSH_AUTH_SOCK env var to a fixed value
-  export SSH_AUTH_SOCK=~/.ssh/ssh-agent.sock
-
-  # test whether $SSH_AUTH_SOCK is valid
-  ssh-add -l 2>/dev/null >/dev/null
-
-  # if not valid, then start ssh-agent using $SSH_AUTH_SOCK
-  [ $? -ge 2 ] && ssh-agent -a "$SSH_AUTH_SOCK" >/dev/null
-}
+#######################################################################
