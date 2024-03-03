@@ -66,6 +66,10 @@ function clone_firesim() {
   git clone git@github.com:firesim/firesim.git $1
 }
 
+function remove_nvim_swapfiles() {
+  rm $HOME/.local/state/nvim/swap/*
+}
+
 ############################################################################
 
 BASE_DIR="/scratch/joonho.whangbo"
