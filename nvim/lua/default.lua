@@ -5,6 +5,9 @@ local async = require "plenary.async"
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 local lspconfig = require('lspconfig')
 
+-- Mason setup
+require("mason").setup()
+require("mason-lspconfig").setup()
 
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
 local servers = { 'clangd', 'metals', 'pyright', 'tsserver' }
@@ -53,6 +56,7 @@ cmp.setup {
   }),
   sources = {
     { name = 'nvim_lsp' },
+    { name = 'buffer' },
     { name = 'luasnip' },
   },
 }
