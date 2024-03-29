@@ -60,3 +60,12 @@ cmp.setup {
     { name = 'luasnip' },
   },
 }
+
+-- run the 'open' command on the current buffer
+vim.api.nvim_create_user_command('Rfinder',
+    function()
+        local path = vim.api.nvim_buf_get_name(0)
+        os.execute('open ' .. path)
+    end,
+    {}
+)

@@ -211,7 +211,7 @@ tnoremap <Esc> <C-\><C-n>
 map <C-n> :NERDTreeToggle<CR>
 
 " Leader
-let mapleader=" "       " leader is space
+let mapleader=","       " leader is comma
 
 " Use alt + hjkl to resize windows
 nnoremap <M-j>    :resize -2<CR>
@@ -235,3 +235,5 @@ nnoremap <S-Tab> :bprevious<CR>
 " Have ctags automatically check for all tags first and present them
 nnoremap <C-]> g<C-]>
 
+" run the "open" command on the current buffer on mac
+nnoremap <Leader>o :Rfinder<CR>
