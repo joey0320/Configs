@@ -1,6 +1,5 @@
 local async = require "plenary.async"
 
-
 -- Add additional capabilities supported by nvim-cmp
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 local lspconfig = require('lspconfig')
@@ -10,7 +9,7 @@ require("mason").setup()
 require("mason-lspconfig").setup()
 
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-local servers = { 'clangd', 'metals', 'pyright', 'tsserver' }
+local servers = { 'clangd', 'metals', 'pyright', 'tsserver', 'marksman', 'jedi_language_server'}
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
     -- on_attach = my_custom_on_attach,
@@ -58,5 +57,9 @@ cmp.setup {
     { name = 'nvim_lsp' },
     { name = 'buffer' },
     { name = 'luasnip' },
+    { name = 'path' },
   },
 }
+
+-- indent blankline setup
+-- require("mini.indentscope").setup()

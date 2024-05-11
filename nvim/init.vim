@@ -10,17 +10,17 @@ Plug 'oahlen/iceberg.nvim'   " colors
 Plug 'jacoborus/tender.vim'  " colors
 
 Plug 'preservim/nerdtree' " file tree explorer
-Plug 'akinsho/git-conflict.nvim' " git conflict marker highlighting
-Plug 'lukas-reineke/indent-blankline.nvim' " indentation guides
-Plug 'airblade/vim-gitgutter' " marks changed lines
-Plug 'rhysd/conflict-marker.vim' " fight against merge conflicts
-Plug 'chrisbra/vim-commentary' " easier commenting
 Plug 'andymass/vim-matchup' " move between matching parenthesis
 Plug 'machakann/vim-highlightedyank' " highlight yanked parts
 Plug 'junegunn/vim-slash' " highlights for in-buf search
+Plug 'nvim-lualine/lualine.nvim' " status on the botton
+Plug 'akinsho/bufferline.nvim'   " status on the top
+Plug 'nvim-tree/nvim-web-devicons' " pretty icons
 
+Plug 'akinsho/git-conflict.nvim' " git conflict marker highlighting
 Plug 'tpope/vim-fugitive' " git inside vim
 Plug 'junegunn/gv.vim' " Even better git inside vim
+Plug 'airblade/vim-gitgutter' " marks changed lines
 
 Plug 'scalameta/nvim-metals' " metals (scala lsp backend)
 Plug 'williamboman/mason.nvim' " lsp manager
@@ -32,8 +32,7 @@ Plug 'hrsh7th/cmp-buffer'    " buffer sources for auto cmp
 Plug 'hrsh7th/cmp-path'      " path auto cmp
 Plug 'L3MON4D3/LuaSnip'      " Lua snip
 
-Plug 'nvim-lualine/lualine.nvim' " status on the botton
-Plug 'akinsho/bufferline.nvim'   " status on the top
+Plug 'chrisbra/vim-commentary' " easier commenting
 call plug#end()
 " automatically calls
 "syntax on " enable syntax highlighting
