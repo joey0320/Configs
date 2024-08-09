@@ -20,6 +20,16 @@ export HISTSIZE=1000000
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
+# Bash completion
+source /etc/profile.d/bash_completion.sh
+bind 'set completion-ignore-case on'
+bind 'TAB:menu-complete'
+bind '"\e[Z": menu-complete-backward'
+bind 'set show-all-if-ambiguous on'
+bind 'set menu-complete-display-prefix on'
+bind 'set colored-completion-prefix on'
+bind 'set colored-stats off'
+
 ##############################################################################
 
 linediff() { 
