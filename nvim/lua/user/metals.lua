@@ -1,7 +1,5 @@
-
-
 local on_attach = function(_, bufnr)
-	print("LSP started.");
+  print("LSP started.");
 
   local nmap = function(keys, func, desc)
     if desc then
@@ -20,17 +18,12 @@ end
 ----------------------------------
 -- LSP Setup ---------------------
 ----------------------------------
-
-
 metals_config = require("metals").bare_config()
 metals_config.init_options.statusBarProvider = "on"
 metals_config.settings = {
   serverVersion = "latest.snapshot"
 }
 metals_config.on_attach = on_attach
-
-
-
 
 local nvim_metals_group = vim.api.nvim_create_augroup("nvim-metals", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
@@ -40,5 +33,3 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
   group = nvim_metals_group,
 })
-
-

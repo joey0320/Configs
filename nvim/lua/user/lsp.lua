@@ -1,5 +1,3 @@
-local async = require "plenary.async"
-
 -- Add additional capabilities supported by nvim-cmp
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 local lspconfig = require('lspconfig')
@@ -60,6 +58,3 @@ cmp.setup {
     { name = 'path' },
   },
 }
-
-require("scrollbar").setup()
-require("bufferline").setup{}
