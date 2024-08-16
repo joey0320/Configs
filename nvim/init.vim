@@ -3,19 +3,18 @@
 call plug#begin()
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " parse file into tree for better highlighting, etc
 Plug 'nvim-lua/plenary.nvim' " see nextline
-Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' } " fuzzy finder
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.4' } " fuzzy finder
+Plug 'preservim/nerdtree' " file tree explorer
 
 Plug 'folke/tokyonight.nvim' " colors
-Plug 'oahlen/iceberg.nvim'   " colors
-Plug 'jacoborus/tender.vim'  " colors
 
-Plug 'preservim/nerdtree' " file tree explorer
 Plug 'andymass/vim-matchup' " move between matching parenthesis
 Plug 'machakann/vim-highlightedyank' " highlight yanked parts
 Plug 'junegunn/vim-slash' " highlights for in-buf search
 Plug 'nvim-lualine/lualine.nvim' " status on the botton
 Plug 'akinsho/bufferline.nvim'   " status on the top
 Plug 'nvim-tree/nvim-web-devicons' " pretty icons
+Plug 'petertriho/nvim-scrollbar' " add scrollbar
 
 Plug 'akinsho/git-conflict.nvim' " git conflict marker highlighting
 Plug 'tpope/vim-fugitive' " git inside vim
@@ -143,13 +142,6 @@ augroup END
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set tags=tags;/
 
-" cscopes
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-if filereadable("./cscope.out")
-  cs add cscope.out
-endif
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 " Chisel syntax highlighting
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 augroup ft_scala
@@ -169,13 +161,8 @@ augroup ft_scala
   autocmd Syntax scala hi link chiselOperator Special
 augroup end
 
-
 " Show hidden files
 let NERDTreeShowHidden=1
-
-" oscyank buffer limit
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:oscyank_max_length = 100000000
 
 " conflict-marker, use only basic highlighting
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -185,8 +172,6 @@ let g:conflict_marker_enable_mappings = 0
 
 
 highlight ColorColumn ctermbg=darkgray
-
-
 
 
 " -------------------------- Key Mappings ---------------------------
@@ -210,7 +195,7 @@ tnoremap <Esc> <C-\><C-n>
 map <C-n> :NERDTreeToggle<CR>
 
 " Leader
-let mapleader=","       " leader is comma
+let mapleader=" "       " leader is space
 
 " Use alt + hjkl to resize windows
 nnoremap <M-j>    :resize -2<CR>
@@ -228,11 +213,6 @@ nnoremap <C-l> <C-w>l
 nnoremap <Tab> :bnext<CR>
 nnoremap <S-Tab> :bprevious<CR>
 
-" grep
-" nnoremap <C-g> :!grep -irn
-
 " Have ctags automatically check for all tags first and present them
 nnoremap <C-]> g<C-]>
 
-" run the "open" command on the current buffer on mac
-nnoremap <Leader>o :Rfinder<CR>

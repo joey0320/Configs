@@ -9,7 +9,7 @@ require("mason").setup()
 require("mason-lspconfig").setup()
 
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-local servers = { 'clangd', 'metals', 'pyright', 'tsserver', 'marksman', 'jedi_language_server'}
+local servers = { 'clangd', 'metals', 'pyright', 'tsserver', 'marksman', 'bashls', 'gopls', 'lua_ls', 'rust_analyzer' }
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
     -- on_attach = my_custom_on_attach,
@@ -61,12 +61,5 @@ cmp.setup {
   },
 }
 
--- run the 'open' command on the current buffer
-vim.api.nvim_create_user_command('Rfinder',
-    function()
-        local path = vim.api.nvim_buf_get_name(0)
-        local no_space_path = string.gsub(path, "%s+", "\\ ")
-        os.execute('open ' .. no_space_path)
-    end,
-    {}
-)
+require("scrollbar").setup()
+require("bufferline").setup{}
