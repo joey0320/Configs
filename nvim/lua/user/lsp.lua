@@ -10,7 +10,7 @@ require("mason-lspconfig").setup()
 local servers = { 'clangd', 'metals', 'pyright', 'tsserver', 'marksman', 'bashls', 'gopls', 'lua_ls', 'rust_analyzer' }
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
-    -- on_attach = my_custom_on_attach,
+-- on_attach = true,
     capabilities = capabilities,
   }
 end
@@ -58,3 +58,4 @@ cmp.setup {
     { name = 'path' },
   },
 }
+

@@ -39,6 +39,52 @@ require("lazy").setup({
   'hrsh7th/cmp-path',
   'L3MON4D3/LuaSnip',
   'chrisbra/vim-commentary',
+  'nvimdev/indentmini.nvim',
+  {
+    "yetone/avante.nvim",
+    event = "VeryLazy",
+    lazy = false,
+    version = false, -- set this if you want to always pull the latest change
+    opts = {
+      -- add any opts here
+    },
+    -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
+    build = "make BUILD_FROM_SOURCE=true",
+    -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
+    dependencies = {
+      "stevearc/dressing.nvim",
+      "nvim-lua/plenary.nvim",
+      "MunifTanjim/nui.nvim",
+      --- The below dependencies are optional,
+      "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
+      "zbirenbaum/copilot.lua", -- for providers='copilot'
+      {
+        -- support for image pasting
+        "HakonHarnes/img-clip.nvim",
+        event = "VeryLazy",
+        opts = {
+          -- recommended settings
+          default = {
+            embed_image_as_base64 = false,
+            prompt_for_file_name = false,
+            drag_and_drop = {
+              insert_mode = true,
+            },
+            -- required for Windows users
+            use_absolute_path = true,
+          },
+        },
+      },
+      {
+        -- Make sure to set this up properly if you have lazy=true
+        'MeanderingProgrammer/render-markdown.nvim',
+        opts = {
+          file_types = { "markdown", "Avante" },
+        },
+        ft = { "markdown", "Avante" },
+      },
+    },
+  }
 })
 
 
@@ -142,7 +188,7 @@ vim.api.nvim_set_keymap('t', '<Esc>', '<C-\\><C-n>', { noremap = true, silent = 
 vim.api.nvim_set_keymap('n', '<C-n>', ':NERDTreeToggle<CR>', { noremap = true, silent = true })
 
 -- Leader key
-vim.g.mapleader = ','
+vim.g.mapleader = ' '
 
 -- Use alt + hjkl to resize windows
 vim.api.nvim_set_keymap('n', '<M-j>', ':resize -2<CR>', { noremap = true, silent = true })
@@ -166,6 +212,20 @@ vim.api.nvim_set_keymap('n', '<C-]>', 'g<C-]>', { noremap = true, silent = true 
 -- run the "open" command on the current buffer on mac
 vim.api.nvim_set_keymap('n', '<Leader>o', ':Rfinder<CR>', { noremap = true, silent = true })
 
+-- Show diagnostic
+vim.api.nvim_set_keymap('n', '<Leader>e', '<cmd>lua vim.diagnostic.open_float()<CR>', { noremap=true, silent=true })
+
+
+-- LSP Mappings
+local opts = { buffer = bufnr, noremap = true, silent = true }
+vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
+vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
+vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
+
 --------------------------------------------------------------------------------------------
 -- Plugins
 --------------------------------------------------------------------------------------------
@@ -177,3 +237,22 @@ require "user.tokyonight"
 
 require("scrollbar").setup()
 require('lualine').setup()
+require("indentmini").setup()
+require('avante_lib').load()
+
+local avante = require('avante')
+
+avante.setup({
+  behaviour = {
+    auto_set_highlight_group = true,
+    auto_apply_diff_after_generation = false,
+  },
+  mappings = {
+    ask = "<leader>aa",
+    refresh = "<leader>ar",
+  },
+  windows = {
+    wrap = true,
+    width = 40,
+  },
+})
