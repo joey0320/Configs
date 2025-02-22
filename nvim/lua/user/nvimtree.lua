@@ -13,6 +13,9 @@ require("nvim-tree").setup {
   actions = {
     open_file = {
       quit_on_open = false,
+   window_picker = {
+        enable = false,  -- Disables window picker, making files open in the last active window
+      },
     },
   },
   on_attach = function(bufnr)
