@@ -26,11 +26,14 @@ require("nvim-tree").setup {
     end
     api.config.mappings.default_on_attach(bufnr)
 
-
--- vim.api.nvim_set_keymap.set('n', '<C-n>', ':NvimTreeOpen<CR>', opts)
--- NERDTree-like mappings
+    -- NERDTree-like mappings
     vim.keymap.set("n", "o", api.node.open.edit, opts("Open"))
     vim.keymap.set("n", "p", api.node.navigate.parent, opts("Go to Parent"))
     vim.keymap.set("n", "r", api.tree.reload, opts("Refresh"))
+    
+    -- Unmap <C-e> inside nvim-tree (it is originally open, but unmap it to scroll)
+    vim.keymap.del("n", "<C-e>", { buffer = bufnr })
+    
+
   end
 }
