@@ -9,14 +9,13 @@ if not vim.loop.fs_stat(lazypath) then
     "--branch=stable", -- latest stable release
     lazypath,
   })
-end
-vim.opt.rtp:prepend(lazypath)
+end vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
   'nvim-lua/plenary.nvim',
   { 'nvim-telescope/telescope.nvim', tag = '0.1.4' },
-  'preservim/nerdtree',
+-- 'preservim/nerdtree',
   'folke/tokyonight.nvim',
   'andymass/vim-matchup',
   'machakann/vim-highlightedyank',
@@ -24,13 +23,14 @@ require("lazy").setup({
   'nvim-lualine/lualine.nvim',
   'akinsho/bufferline.nvim',
   'famiu/bufdelete.nvim',
+  'nvim-tree/nvim-tree.lua',
   'nvim-tree/nvim-web-devicons',
+  'rcarriga/nvim-notify',
   'petertriho/nvim-scrollbar',
+  'airblade/vim-gitgutter',
   'akinsho/git-conflict.nvim',
   'tpope/vim-fugitive',
   'junegunn/gv.vim',
-  'airblade/vim-gitgutter',
-  'scalameta/nvim-metals',
   'williamboman/mason.nvim',
   'williamboman/mason-lspconfig.nvim',
   'neovim/nvim-lspconfig',
@@ -38,18 +38,85 @@ require("lazy").setup({
   'hrsh7th/cmp-nvim-lsp',
   'hrsh7th/cmp-buffer',
   'hrsh7th/cmp-path',
+  'scalameta/nvim-metals',
   'L3MON4D3/LuaSnip',
+  'NoahTheDuke/vim-just',
   'chrisbra/vim-commentary',
 -- 'nvimdev/indentmini.nvim',
+  { "cordx56/rustowl", dependencies = { "neovim/nvim-lspconfig" } },
   {
-    "iamcco/markdown-preview.nvim",
-    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-    build = "cd app && npm install",
-    init = function()
-      vim.g.mkdp_filetypes = { "markdown" }
+    'MeanderingProgrammer/render-markdown.nvim',
+    dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
+    ---@module 'render-markdown'
+    ---@type render.md.UserConfig
+    opts = {},
+  },
+  {
+    "folke/noice.nvim",
+    event = "VeryLazy",
+    opts = {
+    },
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+      "rcarriga/nvim-notify",
+    }
+  },
+  {
+    "folke/snacks.nvim",
+    priority = 1000,
+    lazy = false,
+    ---@type snacks.Config
+    opts = {
+      -- your configuration comes here
+      -- or leave it empty to use the default settings
+      -- refer to the configuration section below
+      indent = {
+        enabled = true,
+        only_scope = true,
+        hl = "SnacksIndent",
+        animate = {
+          enabled = false,
+        }
+      },
+      scroll = { enabled = false },
+      scope = { enable = false },
+      statuscolumn = { enabled = false },
+      notifier = { timeout = 3000, },
+      input = {enable = true },
+      quickfile = { enabled = true },
+      bigfile = { enabled = true },
+      dashboard = { enabled = true },
+      words = {enable = false },
+      terminal = {
+        enable = true,
+      }
+    },
+  },
+  {
+    "tzachar/cmp-ai",
+    enabled = true,
+    dependencies = "nvim-lua/plenary.nvim",
+    config = function()
+      local cmp_ai = require("cmp_ai.config")
+
+      cmp_ai:setup {
+        max_lines = 1000,
+        notify = false,
+        notify_callback = function(msg)
+          vim.notify(msg)
+        end,
+        run_on_every_keystroke = true,
+        ignored_file_types = {
+          TelescopePrompt = true,
+        },
+        -- provider = ollama
+        provider = "Ollama",
+        provider_options = {
+          model = "codellama:7b-code",
+        },
+      }
     end,
-    ft = { "markdown" },
-  }
+  },
 })
 
 
@@ -95,6 +162,7 @@ vim.cmd [[
   set termguicolors
   set foldmethod=manual
   colorscheme tokyonight-night
+  highlight WinSeparator guifg=#394b70 guibg=None
 ]]
 
 -- Termdebug configuration
@@ -109,8 +177,15 @@ vim.cmd [[
 " let g:termdebugger="/scratch/joonho.whangbo/coding/the-one-profiler/chipyard/.conda-env/riscv-tools/bin/riscv64-unknown-linux-gnu-gdb"
 ]]
 
+-- disable netrw at the very start of your init.lua (for nvim-tree)
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+vim.keymap.set("n", "<C-n>", ":NvimTreeToggle<CR>", { noremap = true, silent = true })
+-- vim.keymap.set("n", "r", ":NvimTreeRefresh<CR>", { noremap = true, silent = true })
+
+
 -- Show hidden files in NERDTree
-vim.g.NERDTreeShowHidden = 1
+-- vim.g.NERDTreeShowHidden = 1
 
 -- Conflict marker settings
 vim.g.conflict_marker_enable_mappings = 0
@@ -129,23 +204,9 @@ vim.api.nvim_create_user_command('Rfinder',
  {}
 )
 
--- require "user.markdownpreview"
-vim.g.mkdp_auto_start = 0
-vim.g.mkdp_theme = 'light'
-vim.g.mkdp_auto_close = 0
-
 --------------------------------------------------------------
 -- Key mappings
 --------------------------------------------------------------
-
--- Search results centered please
-vim.api.nvim_set_keymap('n', 'n', 'nzz', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', 'N', 'Nzz', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '*', '*zz', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '#', '#zz', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', 'g*', 'g*zz', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<C-o>', '<C-o>zz', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<C-i>', '<C-i>zz', { noremap = true, silent = true })
 
 -- Faster scroll
 vim.api.nvim_set_keymap('n', '<C-e>', '10<C-e>', { noremap = true, silent = true })
@@ -155,7 +216,7 @@ vim.api.nvim_set_keymap('n', '<C-y>', '10<C-y>', { noremap = true, silent = true
 vim.api.nvim_set_keymap('t', '<Esc>', '<C-\\><C-n>', { noremap = true, silent = true })
 
 -- For nerdtree
-vim.api.nvim_set_keymap('n', '<C-n>', ':NERDTreeToggle<CR>', { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('n', '<C-n>', ':NERDTreeToggle<CR>', { noremap = true, silent = true })
 
 -- Leader key
 vim.g.mapleader = ' '
@@ -196,6 +257,13 @@ vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
 vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
 vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
 
+
+vim.notify = require("notify")
+
+
+vim.g.augment_workspace_folders = { '/scratch/joonho.whangbo/coding/rusty-livehd/' }
+
+
 --------------------------------------------------------------------------------------------
 -- Plugins
 --------------------------------------------------------------------------------------------
@@ -204,7 +272,9 @@ require "user.metals"
 require "user.lsp"
 require "user.bufferline"
 require "user.tokyonight"
+require "user.noice"
+require "user.nvimtree"
 
 require("scrollbar").setup()
 require('lualine').setup()
--- require("indentmini").setup()
+-- require('nvim-tree').setup()

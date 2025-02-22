@@ -2,6 +2,7 @@
 require("tokyonight").setup({
   -- your configuration comes here
   -- or leave it empty to use the default settings
+  lazy = false,
   style = "night", -- The theme comes in three styles, `storm`, `moon`, a darker variant `night` and `day`
   styles = {
     -- Style to be applied to different syntax groups
@@ -16,5 +17,6 @@ require("tokyonight").setup({
   },
   on_colors = function(colors)
     colors.fg = "#CFE2F3"
+    colors.border = "#101010"
   end,
 })

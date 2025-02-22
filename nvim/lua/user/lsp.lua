@@ -7,22 +7,10 @@ require("mason").setup()
 require("mason-lspconfig").setup()
 
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-local servers = {
-  'clangd',
-  'metals',
-  'pyright',
-  'ts_ls',
-  'marksman',
-  'bashls',
-  'gopls',
-  'lua_ls',
-  'rust_analyzer',
-  'tinymist'
-}
-
+local servers = { 'clangd', 'metals', 'pyright', 'ts_ls', 'marksman', 'bashls', 'gopls', 'lua_ls', 'rust_analyzer' }
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
-    -- on_attach = my_custom_on_attach,
+-- on_attach = true,
     capabilities = capabilities,
   }
 end
@@ -65,36 +53,10 @@ cmp.setup {
   }),
   sources = {
     { name = 'nvim_lsp' },
-    { name = 'buffer' },
+    { name = 'cmp_ai' },
     { name = 'luasnip' },
+    { name = 'buffer' },
     { name = 'path' },
   },
 }
 
-vim.api.nvim_create_autocmd(
-    {
-        "BufNewFile",
-        "BufRead",
-    },
-    {
-        pattern = "*.typ",
-        callback = function()
-            local buf = vim.api.nvim_get_current_buf()
-            vim.api.nvim_buf_set_option(buf, "filetype", "typst")
-        end
-    }
-)
-
-require("lspconfig")["tinymist"].setup {
-  capabilities = capabilities,
-  root_dir = function(filename, bufnr)
-    return vim.fn.getcwd()
-  end,
-  settings = {
-    tinymist = {
-      settings = {
-        formatterMode = "typstfmt",
-      },
-    },
-  },
-}
