@@ -9,13 +9,13 @@ if not vim.loop.fs_stat(lazypath) then
     "--branch=stable", -- latest stable release
     lazypath,
   })
-end vim.opt.rtp:prepend(lazypath)
+end
+vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
   'nvim-lua/plenary.nvim',
   { 'nvim-telescope/telescope.nvim', tag = '0.1.4' },
--- 'preservim/nerdtree',
   'folke/tokyonight.nvim',
   'andymass/vim-matchup',
   'machakann/vim-highlightedyank',
@@ -25,6 +25,7 @@ require("lazy").setup({
   'famiu/bufdelete.nvim',
   'nvim-tree/nvim-tree.lua',
   'nvim-tree/nvim-web-devicons',
+  'petertriho/nvim-scrollbar',
   'rcarriga/nvim-notify',
   'petertriho/nvim-scrollbar',
   'airblade/vim-gitgutter',
@@ -181,7 +182,6 @@ vim.cmd [[
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 vim.keymap.set("n", "<C-n>", ":NvimTreeToggle<CR>", { noremap = true, silent = true })
--- vim.keymap.set("n", "r", ":NvimTreeRefresh<CR>", { noremap = true, silent = true })
 
 
 -- Show hidden files in NERDTree
@@ -204,6 +204,11 @@ vim.api.nvim_create_user_command('Rfinder',
  {}
 )
 
+-- require "user.markdownpreview"
+vim.g.mkdp_auto_start = 0
+vim.g.mkdp_theme = 'light'
+vim.g.mkdp_auto_close = 0
+
 --------------------------------------------------------------
 -- Key mappings
 --------------------------------------------------------------
@@ -214,9 +219,6 @@ vim.api.nvim_set_keymap('n', '<C-y>', '10<C-y>', { noremap = true, silent = true
 
 -- termdebug exit terminal mode
 vim.api.nvim_set_keymap('t', '<Esc>', '<C-\\><C-n>', { noremap = true, silent = true })
-
--- For nerdtree
--- vim.api.nvim_set_keymap('n', '<C-n>', ':NERDTreeToggle<CR>', { noremap = true, silent = true })
 
 -- Leader key
 vim.g.mapleader = ' '
@@ -260,10 +262,6 @@ vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
 
 vim.notify = require("notify")
 
-
-vim.g.augment_workspace_folders = { '/scratch/joonho.whangbo/coding/rusty-livehd/' }
-
-
 --------------------------------------------------------------------------------------------
 -- Plugins
 --------------------------------------------------------------------------------------------
@@ -277,4 +275,4 @@ require "user.nvimtree"
 
 require("scrollbar").setup()
 require('lualine').setup()
--- require('nvim-tree').setup()
+require("nvim-web-devicons").setup()
